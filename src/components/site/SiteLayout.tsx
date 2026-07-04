@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import { DynamicIslandCTA } from "./DynamicIslandCTA";
 import { useReveal } from "./useReveal";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -10,6 +11,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <Navbar />
       <main className="flex-1 pt-20">{children}</main>
       <Footer />
+      <DynamicIslandCTA />
     </div>
   );
 }

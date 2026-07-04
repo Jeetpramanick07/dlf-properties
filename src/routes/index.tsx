@@ -8,6 +8,8 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { Counter } from "@/components/site/Counter";
 import { CTASection } from "@/components/site/CTASection";
 import heroImg from "@/assets/hero-residence.jpg";
+import heroVideo from "@/video.mp4";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,32 +43,56 @@ function Index() {
 /* ---------------- HERO ---------------- */
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-surface/40 to-white">
-      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-royal/10 blur-3xl" />
-      <div className="absolute top-40 -left-32 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-12 md:pt-20 pb-16 md:pb-24 grid lg:grid-cols-12 gap-12 items-center">
+    <section className="relative overflow-hidden">
+      {/* Desktop-only: full background video */}
+      <video
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover hidden lg:block"
+      />
+      {/* Desktop gradient overlay */}
+      <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-navy/80 via-navy/50 to-navy/30" />
+
+      {/* Mobile-only: video banner at top */}
+      <div className="relative lg:hidden h-[40vh] overflow-hidden">
+        <video
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy" />
+      </div>
+
+      {/* Content */}
+      <div className="relative max-lg:bg-navy mx-auto max-w-7xl px-6 lg:px-10 lg:pt-20 pb-16 md:pb-24 grid lg:grid-cols-12 gap-12 items-center">
         {/* Left */}
         <div className="lg:col-span-6 reveal">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-1.5 text-xs font-medium text-navy">
-            <span className="h-1.5 w-1.5 rounded-full bg-royal" />
-            <span className="font-serif-accent italic text-muted-foreground">Since 1946 · Trusted Real Estate Legacy</span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+            <span className="font-serif-accent italic text-white/80">Since 1946 · Trusted Real Estate Legacy</span>
           </span>
-          <h1 className="mt-6 text-5xl md:text-6xl lg:text-[3.8rem] font-bold leading-[1.05] text-navy">
+          <h1 className="mt-6 text-5xl md:text-6xl lg:text-[3.8rem] font-bold leading-[1.05] text-white drop-shadow-lg">
             Find <span className="relative inline-block">
               <span className="relative z-10">Landmark Spaces</span>
-              <span className="absolute left-0 right-0 bottom-1 h-3 bg-gold/35 -z-0" />
+              <span className="absolute left-0 right-0 bottom-1 h-3 bg-gold/50 -z-0" />
             </span> Built for Modern Living and Growth
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-xl leading-relaxed">
+          <p className="mt-6 text-lg text-white/85 max-w-xl leading-relaxed">
             DLF Properties brings together residential, commercial, and retail real estate
             solutions backed by decades of development experience, trusted execution, and
             customer-centric service.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/contact" className="inline-flex items-center gap-2 rounded-md bg-navy-deep px-6 py-3.5 text-sm font-semibold text-white shadow-card hover:bg-navy hover:-translate-y-0.5 transition">
+            <Link to="/contact" className="inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3.5 text-sm font-semibold text-navy-deep shadow-card hover:bg-gold/90 hover:-translate-y-0.5 transition">
               Enquire Now <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/services" className="inline-flex items-center gap-2 rounded-md border border-navy/15 bg-white px-6 py-3.5 text-sm font-semibold text-navy hover:border-gold hover:text-navy transition">
+            <Link to="/services" className="inline-flex items-center gap-2 rounded-md border border-white/25 bg-white/10 backdrop-blur-sm px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/20 hover:border-white/40 transition">
               Explore Services
             </Link>
           </div>
@@ -79,33 +105,37 @@ function Hero() {
               { k: "24", v: "Cities" },
               { k: "32.63 Mn", v: "Sq M Delivered" },
             ].map((t) => (
-              <div key={t.v} className="rounded-md border border-border bg-white/70 px-3 py-2.5 backdrop-blur-sm">
-                <div className="text-base font-bold text-navy">{t.k}</div>
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">{t.v}</div>
+              <div key={t.v} className="rounded-md border border-white/15 bg-white/10 px-3 py-2.5 backdrop-blur-sm">
+                <div className="text-base font-bold text-white">{t.k}</div>
+                <div className="text-[11px] uppercase tracking-wider text-white/60">{t.v}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right */}
-        <div className="lg:col-span-6 relative reveal">
-          <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-2xl overflow-hidden shadow-elevated">
-            <img
-              src={heroImg}
-              alt="Premium residential development"
-              width={1280}
-              height={1280}
-              className="absolute inset-0 h-full w-full object-cover scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/10 to-transparent" />
-            {/* Tag chips */}
-            <div className="absolute top-5 left-5 flex flex-wrap gap-2">
-              {["Residential", "Commercial", "Retail"].map((t) => (
-                <span key={t} className="rounded-full bg-white/85 backdrop-blur px-3 py-1 text-[11px] font-medium text-navy">{t}</span>
-              ))}
+        {/* Right — hidden on mobile so background video is visible */}
+        <div className="hidden lg:block lg:col-span-6 relative reveal">
+          <div className="relative aspect-[4/5] md:aspect-[5/6]">
+            {/* Image container with overflow-hidden and rounded corners */}
+            <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-elevated">
+              <img
+                src={heroImg}
+                alt="Premium residential development"
+                width={1280}
+                height={1280}
+                className="absolute inset-0 h-full w-full object-cover scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/10 to-transparent" />
+              {/* Tag chips */}
+              <div className="absolute top-5 left-5 flex flex-wrap gap-2">
+                {["Residential", "Commercial", "Retail"].map((t) => (
+                  <span key={t} className="rounded-full bg-white/85 backdrop-blur px-3 py-1 text-[11px] font-medium text-navy">{t}</span>
+                ))}
+              </div>
             </div>
+
             {/* Floating price card */}
-            <div className="absolute top-1/3 -left-4 md:-left-8 w-56 rounded-xl bg-white p-4 shadow-elevated border border-border float-slow">
+            <div className="absolute top-1/3 -left-4 md:-left-8 z-10 w-56 rounded-xl bg-white p-4 shadow-elevated border border-border float-slow">
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin className="h-3.5 w-3.5 text-royal" /> Gurugram, NCR
               </div>
@@ -116,8 +146,9 @@ function Hero() {
                 <span className="text-base font-bold text-navy">₹ 4.2 Cr+</span>
               </div>
             </div>
+
             {/* Consultation card */}
-            <div className="absolute bottom-5 right-5 w-60 rounded-xl bg-gradient-navy p-4 text-white shadow-elevated">
+            <div className="absolute bottom-5 right-5 z-10 w-60 rounded-xl bg-gradient-navy p-4 text-white shadow-elevated">
               <div className="flex items-center gap-2 text-xs text-gold">
                 <Sparkles className="h-3.5 w-3.5" /> Property Consultation
               </div>

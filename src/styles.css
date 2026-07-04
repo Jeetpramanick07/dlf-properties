@@ -218,3 +218,152 @@
   50% { transform: translateY(-10px); }
 }
 .float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* ---------- Dynamic Island CTA ---------- */
+.dynamic-island-cta {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  z-index: 999;
+  transform: translateX(-50%) translateY(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.4s ease;
+}
+
+.island-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.island-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  pointer-events: none;
+}
+
+.island-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--gradient-navy);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 4px 24px -4px oklch(0.21 0.04 265 / 0.5),
+    0 0 0 1px oklch(0.56 0.19 263 / 0.2);
+  transition: gap 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              padding 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease,
+              transform 0.25s ease;
+}
+
+.island-inner:hover {
+  gap: 10px;
+  padding: 0 28px;
+  box-shadow:
+    0 8px 40px -6px oklch(0.21 0.04 265 / 0.6),
+    0 0 0 1px oklch(0.56 0.19 263 / 0.3),
+    0 0 30px 4px oklch(0.75 0.105 80 / 0.25);
+  transform: scale(1.04);
+}
+
+.island-inner:active {
+  transform: scale(0.97);
+}
+
+/* Glow ring */
+.island-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, oklch(0.75 0.105 80 / 0.5), oklch(0.56 0.19 263 / 0.4));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  filter: blur(6px);
+}
+
+.island-inner:hover .island-glow {
+  opacity: 1;
+}
+
+/* Phone icon — always visible */
+.island-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+/* Label — hidden by default, expands on hover */
+.island-label {
+  display: inline-block;
+  overflow: hidden;
+  transition: max-width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+}
+
+.label-hide {
+  max-width: 0;
+  opacity: 0;
+}
+
+.label-show {
+  max-width: 200px;
+  opacity: 1;
+}
+
+/* Arrow — hidden by default */
+.island-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: max-width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.arrow-hide {
+  max-width: 0;
+  opacity: 0;
+}
+
+.arrow-show {
+  max-width: 24px;
+  opacity: 1;
+}
+
+/* Mobile — slightly smaller island, always visible on touch */
+@media (max-width: 640px) {
+  .dynamic-island-cta {
+    bottom: 20px;
+  }
+  .island-inner {
+    height: 48px;
+    padding: 0 20px;
+    font-size: 13px;
+    gap: 8px;
+  }
+  /* Always show label on mobile since there's no hover */
+  .island-label {
+    max-width: 200px;
+    opacity: 1;
+  }
+  .island-arrow {
+    max-width: 24px;
+    opacity: 1;
+  }
+}
